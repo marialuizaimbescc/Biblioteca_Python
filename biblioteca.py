@@ -62,17 +62,30 @@ def alterar_dados():
     cod = input("Digite o código do livro: ")
     
     encontrou = 0
-    for l in biblioteca: #aqui vai percorrer e sobreescrever com os novos dados
+    for l in biblioteca: #mudei para poder separar o que quer mudar, ao invés de tudo junto
         if l.codigo == cod:
             print("Alterando:", l.titulo)
-            l.titulo = input("Novo título: ")
-            l.autor = input("Novo autor: ")
-            l.ano = input("Novo ano: ")
+            print("1 - Título")
+            print("2 - Autor")
+            print("3 - Ano")
+            opcao = input("O que deseja alterar? ")
+            
+            if opcao == "1":
+                l.titulo = input("Novo título: ")
+            elif opcao == "2":
+                l.autor = input("Novo autor: ")
+            elif opcao == "3":
+                l.ano = input("Novo ano: ")
+            else:
+                print("Opção inválida!")
+                
             print("Dados alterados!")
             encontrou = 1
+            break # interrompe o loop após encontrar o livro
             
     if encontrou == 0:
         print("Livro não encontrado")
+
 
 def busca_rapida():
     print("\n--- Busca Rápida (Opção 4) ---")
@@ -102,4 +115,43 @@ def remover_livro():
         biblioteca.pop(posicao_para_remover) #remove pela posição
         print("Livro removido!")
     else:
+        print("Livro não encontrado")
+
+def listar_todos():
+    print("\n--- Lista de Livros Disponíveis ---")
+
+    disponiveis = []
+
+    for l in biblioteca:
+        if l.disponiveis > 0:
+            disponiveis.append(l)
+
+    if len(disponiveis) == 0:
+        print("Nenhum livro disponível.")
+    else:
+    for i in range(len(disponiveis)): #ordernar sem sort pelo título
+        for j in range(len(disponiveis)-1): #percorre a lista comparando com os elementos do lado
+            if disponiveis[j].titulo > disponiveis[j+1].titulo:
+                guarda = disponiveis[j] #guarda serve para a gnt não perder o livro enquanto ordena
+                disponiveis[j] = disponiveis[j+1]
+                disponiveis[j+1] = guarda
+
+    for l in disponiveis:
+        print("Título:", l.titulo, "| Ano:", l.ano, "| Na estante:", l.disponiveis)
+
+def realizar_emprestimo():
+    print("\n--- Empréstimo ---")
+    cod = input("Digite o código: ")
+    
+    encontrou = 0
+    for l in biblioteca:
+        if l.codigo == cod:
+            encontrou = 1
+            if l.disponiveis > 0:
+                l.disponiveis = l.disponiveis - 1
+                print("Empréstimo realizado! Restam", l.disponiveis, "na estante.")
+            else:
+                print("Livro já emprestado (todos os exemplares estão fora)")
+                
+    if encontrou == 0:
         print("Livro não encontrado")
