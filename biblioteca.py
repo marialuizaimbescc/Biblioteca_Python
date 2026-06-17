@@ -32,3 +32,45 @@ def cadastrar_livro():
     
     biblioteca.append(novo)
     print("Livro cadastrado com sucesso!")
+
+def consultar_livro():
+    print("\n--- Consultar Livro ---")
+    print("1. Por código") #percorre a lista comparando o código
+    print("2. Por autor") #percorre a lista pelo autor
+    opcao = input("Escolha uma opção: ")
+
+    encontrou = 0 #criei essa variável para saber se achou o livro
+    if opcao == "1":
+        cod = input("Digite o código: ")
+        for l in biblioteca:
+            if l.codigo == cod:
+                print("Título:", l.titulo, "| Autor:", l.autor, "| Disponíveis:", l.disponiveis, "/", l.exemplares)
+                encontrou = 1 #achou o livro
+    
+    if opcao == "2":
+        aut = input("Digite o nome do autor: ")
+        for l in biblioteca:
+            if l.autor == aut:
+                print("Código:", l.codigo, "| Título:", l.titulo, "| Disponíveis:", l.disponiveis)
+                encontrou = 1 #achou o livro
+    
+    if encontrou == 0: #não achou
+        print("Livro não encontrado")
+
+def alterar_dados():
+    print("\n--- Alterar Dados ---")
+    cod = input("Digite o código do livro: ")
+    
+    encontrou = 0
+    for l in biblioteca: #aqui vai percorrer e sobreescrever com os novos dados
+        if l.codigo == cod:
+            print("Alterando:", l.titulo)
+            l.titulo = input("Novo título: ")
+            l.autor = input("Novo autor: ")
+            l.ano = input("Novo ano: ")
+            print("Dados alterados!")
+            encontrou = 1
+            
+    if encontrou == 0:
+        print("Livro não encontrado")
+
