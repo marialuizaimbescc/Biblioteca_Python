@@ -74,3 +74,32 @@ def alterar_dados():
     if encontrou == 0:
         print("Livro não encontrado")
 
+def busca_rapida():
+    print("\n--- Busca Rápida (Opção 4) ---")
+    cod = input("Digite o código: ")
+    encontrou = 0 #te copiei
+    for l in biblioteca:
+        if l.codigo == cod:
+            print("Título:", l.titulo)
+            print("Número de exemplares (Total):", l.exemplares)
+            print("Número de exemplares (Disponíveis):", l.disponiveis)
+            encontrou = 1
+    
+    if encontrou == 0:
+        print("Livro não encontrado")
+
+def remover_livro():
+    cod = input("Digite o código: ")
+    encontrou = False  
+    posicao_para_remover = 0
+    
+    for i in range(len(biblioteca)):
+        if biblioteca[i].codigo == cod:
+            posicao_para_remover = i
+            encontrou = True 
+            
+    if encontrou == True:
+        biblioteca.pop(posicao_para_remover) #remove pela posição
+        print("Livro removido!")
+    else:
+        print("Livro não encontrado")
