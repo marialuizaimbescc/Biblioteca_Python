@@ -129,12 +129,12 @@ def listar_todos():
     if len(disponiveis) == 0:
         print("Nenhum livro disponível.")
     else:
-    for i in range(len(disponiveis)): #ordernar sem sort pelo título
-        for j in range(len(disponiveis)-1): #percorre a lista comparando com os elementos do lado
-            if disponiveis[j].titulo > disponiveis[j+1].titulo:
-                guarda = disponiveis[j] #guarda serve para a gnt não perder o livro enquanto ordena
-                disponiveis[j] = disponiveis[j+1]
-                disponiveis[j+1] = guarda
+        for i in range(len(disponiveis)): #ordernar sem sort pelo título
+            for j in range(len(disponiveis)-1): #percorre a lista comparando com os elementos do lado
+                if disponiveis[j].titulo > disponiveis[j+1].titulo:
+                    guarda = disponiveis[j] #guarda serve para a gnt não perder o livro enquanto ordena
+                    disponiveis[j] = disponiveis[j+1]
+                    disponiveis[j+1] = guarda
 
     for l in disponiveis:
         print("Título:", l.titulo, "| Ano:", l.ano, "| Na estante:", l.disponiveis)
@@ -155,3 +155,56 @@ def realizar_emprestimo():
                 
     if encontrou == 0:
         print("Livro não encontrado")
+
+def realizar_devolucao():
+    print("\n--- Devolução ---")
+    cod = input("Digite o código: ")
+    
+    encontrou = 0
+    for l in biblioteca: #fiz bem parecido com o teu pq é praticamente igual
+        if l.codigo == cod:
+            encontrou = 1
+            if l.disponiveis < l.exemplares:
+                l.disponiveis = l.disponiveis + 1
+                print("Devolução realizada! Agora temos", l.disponiveis, "na estante.")
+            else:
+                print("Erro: Todos os exemplares já estão na biblioteca!")
+            
+    if encontrou == 0:
+        print("Livro não encontrado")
+
+# menu principal
+rodando = 1
+while rodando == 1:
+    print("\n--- MENU BIBLIOTECA ---")
+    print("1- Cadastrar livro")
+    print("2- Consultar livro")
+    print("3- Alterar dados")
+    print("4- Busca rápida")
+    print("5- Remover livro")
+    print("6- Listar todos")
+    print("7- Realizar empréstimo")
+    print("8- Realizar devolução")
+    print("9- Sair")
+    
+    op = input("Escolha: ")
+    
+    if op == "1":
+        cadastrar_livro()
+    if op == "2":
+        consultar_livro()
+    if op == "3":
+        alterar_dados()
+    if op == "4":
+        busca_rapida()
+    if op == "5":
+        remover_livro()
+    if op == "6":
+        listar_todos()
+    if op == "7":
+        realizar_emprestimo()
+    if op == "8":
+        realizar_devolucao()
+    if op == "9":
+        print("Saindo...")
+        rodando = 0
