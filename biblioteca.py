@@ -45,16 +45,16 @@ def consultar_livro():
         for l in biblioteca:
             if l.codigo == cod:
                 print("Título:", l.titulo, "| Autor:", l.autor, "| Disponíveis:", l.disponiveis, "/", l.exemplares)
-                encontrou = 1 #achou o livro
+                encontrou = 1 
     
     if opcao == "2":
         aut = input("Digite o nome do autor: ")
         for l in biblioteca:
             if l.autor == aut:
                 print("Código:", l.codigo, "| Título:", l.titulo, "| Disponíveis:", l.disponiveis)
-                encontrou = 1 #achou o livro
+                encontrou = 1 
     
-    if encontrou == 0: #não achou
+    if encontrou == 0: 
         print("Livro não encontrado")
 
 def alterar_dados():
@@ -72,16 +72,14 @@ def alterar_dados():
             
             if opcao == "1":
                 l.titulo = input("Novo título: ")
-            elif opcao == "2":
+            if opcao == "2":
                 l.autor = input("Novo autor: ")
-            elif opcao == "3":
+            if opcao == "3":
                 l.ano = input("Novo ano: ")
-            else:
-                print("Opção inválida!")
                 
             print("Dados alterados!")
             encontrou = 1
-            break # interrompe o loop após encontrar o livro
+            break
             
     if encontrou == 0:
         print("Livro não encontrado")
