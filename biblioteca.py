@@ -53,7 +53,7 @@ def consultar_livro():
                 print("Código:", l.codigo, "| Título:", l.titulo, "| Disponíveis:", l.disponiveis)
                 encontrou = 1 
     
-    if encontrou == 0:
+    if encontrou == 0: 
         print("Livro não encontrado")
 
 def alterar_dados():
@@ -71,12 +71,10 @@ def alterar_dados():
             
             if opcao == "1":
                 l.titulo = input("Novo título: ")
-            elif opcao == "2":
+            if opcao == "2":
                 l.autor = input("Novo autor: ")
-            elif opcao == "3":
+            if opcao == "3":
                 l.ano = input("Novo ano: ")
-            else:
-                print("Opção inválida!")
                 
             print("Dados alterados!")
             encontrou = 1
@@ -116,10 +114,10 @@ def remover_livro():
     else:
         print("Livro não encontrado")
 
-def listar_todos():
+def listar_disponiveis():
     print("\n--- Lista de Livros Disponíveis ---")
 
-    disponiveis = []
+    disponiveis = [] #cria uma lista para os diponiveis
 
     for l in biblioteca:
         if l.disponiveis > 0:
@@ -136,6 +134,19 @@ def listar_todos():
                     disponiveis[j+1] = guarda
 
     for l in disponiveis:
+        print("Título:", l.titulo, "| Ano:", l.ano, "| Na estante:", l.disponiveis)
+
+def listar_todos(): #lista os livros que não estão disponíveis tambem
+    print("\n--- Lista de Todos os Livros ---")
+
+    for i in range(len(biblioteca)):  # ordenar sem sort pelo título
+        for j in range(len(biblioteca) - 1):
+            if biblioteca[j].titulo > biblioteca[j + 1].titulo:
+                guarda = biblioteca[j]
+                biblioteca[j] = biblioteca[j + 1]
+                biblioteca[j + 1] = guarda
+
+    for l in biblioteca:
         print("Título:", l.titulo, "| Ano:", l.ano, "| Na estante:", l.disponiveis)
 
 def realizar_emprestimo():
@@ -181,10 +192,11 @@ while rodando == 1:
     print("3- Alterar dados")
     print("4- Busca rápida")
     print("5- Remover livro")
-    print("6- Listar todos")
-    print("7- Realizar empréstimo")
-    print("8- Realizar devolução")
-    print("9- Sair")
+    print("6- Listar disponíveis")
+    print("7- Listar todos")
+    print("8- Realizar empréstimo")
+    print("9- Realizar devolução")
+    print("10- Sair")
     
     op = input("Escolha: ")
     
@@ -199,11 +211,13 @@ while rodando == 1:
     if op == "5":
         remover_livro()
     if op == "6":
-        listar_todos()
+        listar_disponiveis()
     if op == "7":
-        realizar_emprestimo()
+        listar_todos()
     if op == "8":
-        realizar_devolucao()
+        realizar_emprestimo()
     if op == "9":
+        realizar_devolucao()
+    if op == "10":
         print("Saindo...")
         rodando = 0
