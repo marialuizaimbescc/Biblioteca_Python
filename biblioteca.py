@@ -4,57 +4,56 @@ class livro:
     autor = ''
     ano = ''
     codigo = ''
-    exemplares = 0 # Total de livros que a biblioteca comprou
-    disponiveis = 0 # Quantos estão na estante agora
+    exemplares = 0 # Total de livros que a biblioteca comprou/adquiriu
+    disponiveis = 0 
 
 # Lista para guardar os livros
 biblioteca = []
 
 def cadastrar_livro():
-    print("\n--- Cadastrar Livro ---") # Vamos deixar esse formato 
+    print("\n--- Cadastrar Livro ---") 
     cod = input("Digite o código do livro: ")
-    
-    # Verificar se o código já existe
+
     for l in biblioteca:
         if l.codigo == cod:
             print("Erro: Já existe um livro com este código!")
             return
 
     novo = livro()
-    novo.codigo = cod #facilitou
+    novo.codigo = cod 
     novo.titulo = input("Digite o título: ")
     novo.autor = input("Digite o autor (apenas o primeiro): ")
     novo.ano = input("Digite o ano de publicação: ")
     
     qtd = int(input("Quantidade de exemplares: "))
     novo.exemplares = qtd
-    novo.disponiveis = qtd # todos estão disponíveis
+    novo.disponiveis = qtd 
     
     biblioteca.append(novo)
     print("Livro cadastrado com sucesso!")
 
 def consultar_livro():
     print("\n--- Consultar Livro ---")
-    print("1. Por código") #percorre a lista comparando o código
-    print("2. Por autor") #percorre a lista pelo autor
+    print("1. Por código") 
+    print("2. Por autor") 
     opcao = input("Escolha uma opção: ")
 
-    encontrou = 0 #criei essa variável para saber se achou o livro
+    encontrou = 0 
     if opcao == "1":
         cod = input("Digite o código: ")
         for l in biblioteca:
             if l.codigo == cod:
                 print("Título:", l.titulo, "| Autor:", l.autor, "| Disponíveis:", l.disponiveis, "/", l.exemplares)
-                encontrou = 1 #achou o livro
+                encontrou = 1 
     
     if opcao == "2":
         aut = input("Digite o nome do autor: ")
         for l in biblioteca:
             if l.autor == aut:
                 print("Código:", l.codigo, "| Título:", l.titulo, "| Disponíveis:", l.disponiveis)
-                encontrou = 1 #achou o livro
+                encontrou = 1 
     
-    if encontrou == 0: #não achou
+    if encontrou == 0:
         print("Livro não encontrado")
 
 def alterar_dados():
@@ -62,7 +61,7 @@ def alterar_dados():
     cod = input("Digite o código do livro: ")
     
     encontrou = 0
-    for l in biblioteca: #mudei para poder separar o que quer mudar, ao invés de tudo junto
+    for l in biblioteca: 
         if l.codigo == cod:
             print("Alterando:", l.titulo)
             print("1 - Título")
@@ -81,7 +80,7 @@ def alterar_dados():
                 
             print("Dados alterados!")
             encontrou = 1
-            break # interrompe o loop após encontrar o livro
+            break 
             
     if encontrou == 0:
         print("Livro não encontrado")
@@ -112,7 +111,7 @@ def remover_livro():
             encontrou = True 
             
     if encontrou == True:
-        biblioteca.pop(posicao_para_remover) #remove pela posição
+        biblioteca.pop(posicao_para_remover) 
         print("Livro removido!")
     else:
         print("Livro não encontrado")
@@ -129,10 +128,10 @@ def listar_todos():
     if len(disponiveis) == 0:
         print("Nenhum livro disponível.")
     else:
-        for i in range(len(disponiveis)): #ordernar sem sort pelo título
+        for i in range(len(disponiveis)): 
             for j in range(len(disponiveis)-1): #percorre a lista comparando com os elementos do lado
                 if disponiveis[j].titulo > disponiveis[j+1].titulo:
-                    guarda = disponiveis[j] #guarda serve para a gnt não perder o livro enquanto ordena
+                    guarda = disponiveis[j] 
                     disponiveis[j] = disponiveis[j+1]
                     disponiveis[j+1] = guarda
 
@@ -161,7 +160,7 @@ def realizar_devolucao():
     cod = input("Digite o código: ")
     
     encontrou = 0
-    for l in biblioteca: #fiz bem parecido com o teu pq é praticamente igual
+    for l in biblioteca: 
         if l.codigo == cod:
             encontrou = 1
             if l.disponiveis < l.exemplares:
