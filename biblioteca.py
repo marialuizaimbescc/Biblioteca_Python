@@ -18,10 +18,11 @@ def cadastrar_livro():
         if l.codigo == cod:
             print("Erro: Já existe um livro com este código!")
             return
-
+        
+    #ficha para cadastrar um novo livro
     novo = livro()
     novo.codigo = cod 
-    novo.titulo = input("Digite o título: ")
+    novo.titulo = input("Digite o título: ").upper()
     novo.autor = input("Digite o autor (apenas o primeiro): ")
     novo.ano = input("Digite o ano de publicação: ")
     
@@ -34,6 +35,7 @@ def cadastrar_livro():
 
 def consultar_livro():
     print("\n--- Consultar Livro ---")
+    #duas opções para se tornar mais fácil
     print("1. Por código") 
     print("2. Por autor") 
     opcao = input("Escolha uma opção: ")
@@ -69,6 +71,7 @@ def alterar_dados():
             print("3 - Ano")
             opcao = input("O que deseja alterar? ")
             
+            #se sobrepõem ao que já existia
             if opcao == "1":
                 l.titulo = input("Novo título: ")
             if opcao == "2":
@@ -83,11 +86,10 @@ def alterar_dados():
     if encontrou == 0:
         print("Livro não encontrado")
 
-
 def busca_rapida():
     print("\n--- Busca Rápida (Opção 4) ---")
     cod = input("Digite o código: ")
-    encontrou = 0 #te copiei
+    encontrou = 0 
     for l in biblioteca:
         if l.codigo == cod:
             print("Título:", l.titulo)
@@ -101,15 +103,15 @@ def busca_rapida():
 def remover_livro():
     cod = input("Digite o código: ")
     encontrou = False  
-    posicao_para_remover = 0
+    posicao_para_remover = 0 #recebe a posição(índice)
     
     for i in range(len(biblioteca)):
         if biblioteca[i].codigo == cod:
-            posicao_para_remover = i
+            posicao_para_remover = i #guarda o índice
             encontrou = True 
             
     if encontrou == True:
-        biblioteca.pop(posicao_para_remover) 
+        biblioteca.pop(posicao_para_remover) #remove o índice
         print("Livro removido!")
     else:
         print("Livro não encontrado")
@@ -136,7 +138,8 @@ def listar_disponiveis():
     for l in disponiveis:
         print("Título:", l.titulo, "| Ano:", l.ano, "| Na estante:", l.disponiveis)
 
-def listar_todos(): #lista os livros que não estão disponíveis tambem
+def listar_todos(): 
+    #lista os livros que não estão disponíveis tambem
     print("\n--- Lista de Todos os Livros ---")
 
     for i in range(len(biblioteca)):  # ordenar sem sort pelo título
@@ -157,7 +160,7 @@ def realizar_emprestimo():
     for l in biblioteca:
         if l.codigo == cod:
             encontrou = 1
-            if l.disponiveis > 0:
+            if l.disponiveis > 0: #deve existir ao menos 1 diponível
                 l.disponiveis = l.disponiveis - 1
                 print("Empréstimo realizado! Restam", l.disponiveis, "na estante.")
             else:
@@ -174,7 +177,7 @@ def realizar_devolucao():
     for l in biblioteca: 
         if l.codigo == cod:
             encontrou = 1
-            if l.disponiveis < l.exemplares:
+            if l.disponiveis < l.exemplares: #não exceder a quantidade de exemplares 
                 l.disponiveis = l.disponiveis + 1
                 print("Devolução realizada! Agora temos", l.disponiveis, "na estante.")
             else:
